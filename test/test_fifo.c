@@ -2,8 +2,11 @@
 #include "unity.h"
 #include "fifo.h"
 
+fifo f;
+
 void setUp(void)
 {
+  fifo_init(&f);
 }
 
 void tearDown(void)
@@ -11,16 +14,12 @@ void tearDown(void)
 }
 
 void test_fifo_init() {
-  fifo f;
-  fifo_init(&f, 2);
 
   TEST_ASSERT_EQUAL_INT(f.level, 0);
   TEST_ASSERT_EQUAL_INT(f.size, 2);
 }
 
 void test_fifo_write() {
-  fifo f;
-  fifo_init(&f, 2);
   fifo_write(&f, 23);
 
   TEST_ASSERT_EQUAL_INT(1, f.level);
@@ -28,8 +27,6 @@ void test_fifo_write() {
 }
 
 void test_fifo_peek() {
-  fifo f;
-  fifo_init(&f, 2);
   fifo_write(&f, 23);
   fifo_write(&f, 42);
 
@@ -40,8 +37,6 @@ void test_fifo_peek() {
 }
 
 void test_fifo_read() {
-  fifo f;
-  fifo_init(&f, 2);
   fifo_write(&f, 23);
   fifo_write(&f, 42);
 
@@ -53,8 +48,6 @@ void test_fifo_read() {
 
 void test_fifo_wrap() {
   uint8_t b[] = {5, 42};
-  fifo f;
-  fifo_init(&f, 2);
   fifo_write(&f, 23);
   fifo_write(&f, 42);
   
@@ -71,8 +64,6 @@ void test_fifo_wrap() {
 }
 
 void test_fifo_full() {
-  fifo f;
-  fifo_init(&f, 2);
   fifo_write(&f, 42);
 
   TEST_ASSERT_EQUAL_INT(0, fifo_full(&f));

@@ -5,20 +5,20 @@
   :use_test_preprocessor: TRUE
   :use_auxiliary_dependencies: TRUE
   :build_root: build
-#  :release_build: TRUE
+  :release_build: TRUE
   :test_file_prefix: test_
   :which_ceedling: gem
   :default_tasks:
     - test:all
 
-#:release_build:
-#  :output: MyApp.out
-#  :use_assembly: FALSE
+:release_build:
+  :output: ws2812-bridge
+  :use_assembly: FALSE
 
 :environment:
 
 :extension:
-  :executable: .out
+  :executable: .bin
 
 :paths:
   :test:
@@ -29,6 +29,12 @@
   :support:
     - test/support
 
+:flags:
+  :release:
+    :compile:
+      :fifo:
+        - -DFIFO_SIZE=100
+
 :defines:
   # in order to add common defines:
   #  1) remove the trailing [] from the :common: section
@@ -37,6 +43,7 @@
   :test:
     - *common_defines
     - TEST
+    - FIFO_SIZE=2
   :test_preprocess:
     - *common_defines
     - TEST
@@ -56,25 +63,44 @@
     bool:     UINT8
 
 :gcov:
-    :html_report_type: basic
+  :html_report_type: basic
 
-#:tools:
-# Ceedling defaults to using gcc for compiling, linking, etc.
-# As [:tools] is blank, gcc will be used (so long as it's in your system path)
-# See documentation to configure a given toolchain for use
-
-# LIBRARIES
-# These libraries are automatically injected into the build process. Those specified as
-# common will be used in all types of builds. Otherwise, libraries can be injected in just
-# tests or releases. These options are MERGED with the options in supplemental yaml files.
-:libraries:
-  :placement: :end
-  :flag: "${1}"  # or "-L ${1}" for example
-  :common: &common_libraries []
-  :test:
-    - *common_libraries
-  :release:
-    - *common_libraries
+:tools:
+  :release_compiler:
+    :executable: arm-none-eabi-gcc
+    :arguments:
+      - -std=c99
+      - -g3
+      - -fno-common
+      - -ffunction-sections
+      - -fdata-sections
+      - -mthumb
+      - -mcpu=cortex-m3
+      - -msoft-float
+      - -Wall
+      - -Os
+      - -c
+      - -I./libopencm3/include
+      - ${1}
+      - -o ${2}
+  :release_linker:
+    :executable: arm-none-eabi-gcc
+    :arguments:
+      - --static
+      - -nostartfiles
+      - -Wl,--start-group
+      - -lc
+      - -lgcc
+      - -lnosys
+      - -Wl,--end-group
+      - -mthumb
+      - -mcpu=cortex-m3
+      - -msoft-float
+      - -L./libopencm3/lib
+      - -T stm32/f1/stm32f103xb.ld
+      - -lopencm3_stm32f1
+      - ${1}
+      - -o ${2}.bin
 
 :plugins:
   :load_paths:

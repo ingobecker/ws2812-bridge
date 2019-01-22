@@ -2,12 +2,12 @@
 #include <stdint.h>
 #include "fifo.h"
 
-int fifo_init(fifo *f, int size) {
+int fifo_init(fifo *f) {
   f->read = 0;
   f->write = 0;
-  f->size = size;
+  f->size = FIFO_SIZE;
   f->level = 0;
-  f->buffer = malloc(size * sizeof(uint8_t));
+  //f->buffer = malloc(size * sizeof(uint8_t));
   return 0;
 }
 

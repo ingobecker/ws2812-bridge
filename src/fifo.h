@@ -6,10 +6,10 @@ typedef struct {
   int write;
   int size;
   int level;
-  uint8_t *buffer;
+  uint8_t buffer[FIFO_SIZE * sizeof(uint8_t)];
 } fifo;
 
-int fifo_init(fifo *f, int size);
+int fifo_init(fifo *f);
 int fifo_advance(int size, int v);
 void fifo_write(fifo *f, uint8_t v);
 uint8_t fifo_read(fifo *f);
