@@ -30,10 +30,20 @@
     - test/support
 
 :flags:
+  :test:
+    :compile:
+      :*:
+        - -DOUTPUT_PROCESSOR_LED_0=24
+        - -DOUTPUT_PROCESSOR_LED_1=54
+        - -DLED_COUNT=2
   :release:
     :compile:
-      :fifo:
+      :*:
+        - -DOUTPUT_PROCESSOR_LED_0=24
+        - -DOUTPUT_PROCESSOR_LED_1=54
+        - -DOUTPUT_PROCESSOR_PAGE_SIZE=2
         - -DFIFO_SIZE=100
+        - -DLED_COUNT=100
 
 :defines:
   # in order to add common defines:
@@ -44,6 +54,9 @@
     - *common_defines
     - TEST
     - FIFO_SIZE=2
+    - OUTPUT_PROCESSOR_LED_0=24
+    - OUTPUT_PROCESSOR_LED_1=54
+    - LED_COUNT=2
   :test_preprocess:
     - *common_defines
     - TEST
@@ -63,7 +76,7 @@
     bool:     UINT8
 
 :gcov:
-  :html_report_type: basic
+  :html_report_type: detailed
 
 :tools:
   :release_compiler:
@@ -108,4 +121,6 @@
   :enabled:
     - stdout_pretty_tests_report
     - module_generator
+    - module_generator
+    - gcov
 ...
