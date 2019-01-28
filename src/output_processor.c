@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdint.h>
 #include "fifo.h"
 #include "output_processor.h"
