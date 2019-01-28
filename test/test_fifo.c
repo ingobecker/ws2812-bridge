@@ -15,8 +15,8 @@ void tearDown(void)
 
 void test_fifo_init() {
 
-  TEST_ASSERT_EQUAL_INT(f.level, 0);
-  TEST_ASSERT_EQUAL_INT(f.size, 2);
+  TEST_ASSERT_EQUAL_INT(0, f.level);
+  TEST_ASSERT_EQUAL_INT(2, f.size);
 }
 
 void test_fifo_write() {
