@@ -15,13 +15,13 @@ hardware by using DMA and PWM timers. That way, you have a lot of time doing
 software processing.
 
 **variable framerate** The framerate can be controlled in software. The maximum
-framerate dependes on the number LEDs connected, the available input speed of
-the serial interface and can't be faster than 400 Hz because that's the internal
-PWM frequency of the LED.
+framerate dependes on the number of LEDs connected, the available input speed
+of the serial interface and can't be faster than 400 Hz because that's the
+internal PWM frequency of the LED.
 
-**input buffering** Set the size of the serial input buffer on compile time. Use
-a small buffer size for low latency applications or a lager size to avoid buffer
-underruns.
+**input buffering** Set the size of the serial input buffer on compile time.
+Use a small buffer size for low latency applications or a lager size to avoid
+buffer underruns.
 
 **test coverage** Most parts of the software are tested.
 
@@ -33,15 +33,15 @@ The buildsystem is installed as a rubygem:
 $ bundle install
 ```
 
-The tests can be run compiled and run for/on your host system. Make sure you
-have gcc, make, python and git installed and run:
+The tests can be compiled and run for/on your host system. Make sure you have
+gcc installed and run:
 
 ```
 $ ./bin/ceedling
 ```
 
 In order to build a binary for the target, make sure you have a
-`arm-none-eabi-gcc`-toolchain installed and run:
+`arm-none-eabi-gcc`-toolchain, make, python and git installed and run:
 
 ```
 $ ./bin/ceedling release
