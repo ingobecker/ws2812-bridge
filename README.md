@@ -34,7 +34,7 @@ $ bundle install
 ```
 
 The tests can be run compiled and run for/on your host system. Make sure you
-have gcc installed and run:
+have gcc, make, python and git installed and run:
 
 ```
 $ ./bin/ceedling
