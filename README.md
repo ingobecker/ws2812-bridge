@@ -40,6 +40,19 @@ gcc installed and run:
 $ ./bin/ceedling
 ```
 
+To flash the code into the target and run an interactive gdb session on the
+target run:
+
+```
+$ ./bin/ceedling target:debug
+```
+
+To flash only run:
+
+```
+$ ./bin/ceedling target:flash
+```
+
 In order to build a binary for the target, make sure you have a
 `arm-none-eabi-gcc`-toolchain, make, python and git installed and run:
 
