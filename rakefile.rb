@@ -10,7 +10,7 @@ task release: 'vendor/libopencm3/include'
 
 namespace :target do
 
-  desc 'start debug session on target'
+  desc 'flash release into target and drop into gdb session'
   task debug: :release do
     exec <<-GDB.gsub(/\s+/, " ")
         arm-none-eabi-gdb
@@ -20,7 +20,7 @@ namespace :target do
           GDB
   end
 
-  desc 'start debug session on target'
+  desc 'flash release into target'
   task flash: :release do
     exec <<-GDB.gsub(/\s+/, " ")
         arm-none-eabi-gdb
